@@ -97,7 +97,7 @@ def depthFirstSearch(problem):
     open = Stack()
     visited = {}
 
-    open.push((pos, 0, Directions.STOP))
+    open.push((pos, 0, None))
     found = False
     history = Stack()
 
@@ -112,7 +112,7 @@ def depthFirstSearch(problem):
             dep -= 1
             history.pop()
         dep = _dep
-        if(his is not st):
+        if(his is not None):
             history.push(his)
         if(problem.isGoalState(pos)):
             found = True
