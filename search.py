@@ -91,37 +91,16 @@ def depthFirstSearch(problem):
     """
     "*** YOUR CODE HERE ***"
     from game import Directions
-    # s = Directions.SOUTH
-    # w = Directions.WEST
-    # e = Directions.EAST
-    # n = Directions.NORTH
     st = Directions.STOP
-    from copy import copy
-    from copy import deepcopy
     from util import Stack
-    state = problem.getStartState()
-    pos = copy(state)
-    # walls = problem.walls.data
-    # dimx = len(walls)
-    # dimy = 0
-    # if(dimx != 0):
-    #     dimy = len(walls[0])
+    pos = problem.getStartState()
     open = Stack()
-    visited = {} #[]
-    # for i in range(0, dimx):
-    #     visited.append([])
-    #     for j in range(0, dimy):
-    #         visited[i].append(False)
-    open.push((deepcopy(pos), 0, Directions.STOP))
+    visited = {}
+
+    open.push((pos, 0, Directions.STOP))
     found = False
     history = Stack()
-    # def checkWalls(pos):
-    #     x = pos[0]
-    #     y = pos[1]
-    #     if(x >= 0 and x < dimx and y >=0 and y < dimy):
-    #         if(not visited[x][y] and walls[x][y] == False):
-    #             return True
-    #     return False
+
     dep = -1
     while(not problem.isGoalState(pos) and not open.isEmpty()):
         pos, _dep, his = open.pop()
@@ -145,18 +124,7 @@ def depthFirstSearch(problem):
                 if(visited.get(successor) is None or visited[successor] == False):
                     visited[successor] = False
                     open.push((successor, dep+1, action))
-            # p = (pos[0]+1,pos[1])
-            # if checkWalls(p):
-            #     open.push((deepcopy(p),dep+1, e))
-            # p = (pos[0],pos[1]-1)
-            # if checkWalls(p):
-            #     open.push((deepcopy(p),dep+1, s))
-            # p = (pos[0],pos[1]+1)
-            # if checkWalls(p):
-            #     open.push((deepcopy(p),dep+1, n))
-            # p = (pos[0]-1,pos[1])
-            # if checkWalls(p):
-            #     open.push((deepcopy(p),dep+1, w))
+
     ret = []
     if(found):
         while(not history.isEmpty()):
@@ -167,39 +135,16 @@ def depthFirstSearch(problem):
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
-    # from game import Directions
-    # s = Directions.SOUTH
-    # w = Directions.WEST
-    # e = Directions.EAST
-    # n = Directions.NORTH
-    # st = Directions.STOP
-    from copy import copy
-    from copy import deepcopy
     from util import Queue
-    state = problem.getStartState()
-    pos = copy(state)
-    # walls = problem.walls.data
-    # dimx = len(walls)
-    # dimy = 0
-    # if(dimx != 0):
-    #     dimy = len(walls[0])
+    pos = problem.getStartState()
+
     open = Queue()
     visited = {}
-    # for i in range(0, dimx):
-    #     visited.append([])
-    #     for j in range(0, dimy):
-    #         visited[i].append(False)
-    open.push((deepcopy(pos), []))
+
+    open.push((pos, []))
     found = False
     history = Queue()
-    # def checkWalls(pos):
-    #     x = pos[0]
-    #     y = pos[1]
-    #     if(x >= 0 and x < dimx and y >=0 and y < dimy):
-    #         if(not visited[x][y] and walls[x][y] == False):
-    #             return True
-    #     return False
-    
+
     while(not problem.isGoalState(pos) and not open.isEmpty()):
         pos, his = open.pop()
         if visited.get(pos) is not None and visited[pos]:
@@ -216,18 +161,7 @@ def breadthFirstSearch(problem):
                 if visited.get(successor) is None or visited[successor] == False:
                     visited[successor] = False
                     open.push((successor, his+[action]))
-            # p = (pos[0]+1,pos[1])
-            # if checkWalls(p):
-            #     open.push((deepcopy(p), his+[e]))
-            # p = (pos[0],pos[1]-1)
-            # if checkWalls(p):
-            #     open.push((deepcopy(p), his+[s]))
-            # p = (pos[0],pos[1]+1)
-            # if checkWalls(p):
-            #     open.push((deepcopy(p), his+[n]))
-            # p = (pos[0]-1,pos[1])
-            # if checkWalls(p):
-            #     open.push((deepcopy(p), his+[w]))
+
     ret = []
     if(found):
         ret = history
@@ -235,39 +169,15 @@ def breadthFirstSearch(problem):
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
     "*** YOUR CODE HERE ***"
-    # from game import Directions
-    # s = Directions.SOUTH
-    # w = Directions.WEST
-    # e = Directions.EAST
-    # n = Directions.NORTH
-    # st = Directions.STOP
-    from copy import copy
-    from copy import deepcopy
     from util import Queue
     from util import PriorityQueue
-    state = problem.getStartState()
-    pos = copy(state)
-    # walls = problem.walls.data
-    # dimx = len(walls)
-    # dimy = 0
-    # if(dimx != 0):
-    #     dimy = len(walls[0])
+    pos = problem.getStartState()
     open = PriorityQueue()
-    visited = {} #[]
-    # for i in range(0, dimx):
-    #     visited.append([])
-    #     for _ in range(0, dimy):
-    #         visited[i].append(False)
-    open.push((deepcopy(pos),0, []),0)
+    visited = {} 
+    open.push((pos,0, []),0)
     found = False
     history = Queue()
-    # def checkWalls(pos):
-    #     x = pos[0]
-    #     y = pos[1]
-    #     if(x >= 0 and x < dimx and y >=0 and y < dimy):
-    #         if(not visited[x][y] and walls[x][y] == False):
-    #             return True
-    #     return False
+
     
     while(not problem.isGoalState(pos) and not open.isEmpty()):
         pos, cost, his = open.pop()
@@ -286,22 +196,7 @@ def uniformCostSearch(problem):
                     visited[successor] = False
                     _c = _cost + cost
                     open.push((successor, _c, his+[action]), _c)
-            # p = (pos[0]+1,pos[1])
-            # _c = cost+problem.costFn(p)
-            # if checkWalls(p):
-            #     open.push((deepcopy(p), _c, his+[e]),_c)
-            # p = (pos[0],pos[1]-1)
-            # _c = cost+problem.costFn(p)
-            # if checkWalls(p):
-            #     open.push((deepcopy(p), _c, his+[s]), _c)
-            # p = (pos[0],pos[1]+1)
-            # _c = cost+problem.costFn(p)
-            # if checkWalls(p):
-            #     open.push((deepcopy(p), _c, his+[n]), _c)
-            # p = (pos[0]-1,pos[1])
-            # _c = cost+problem.costFn(p)
-            # if checkWalls(p):
-            #     open.push((deepcopy(p), _c, his+[w]), _c)
+
     ret = []
     if(found):
         ret = history
