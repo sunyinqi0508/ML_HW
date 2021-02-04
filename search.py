@@ -139,7 +139,8 @@ def depthFirstSearch(problem):
             succ = problem.getSuccessors(pos)
             for next in succ:
                 successor, action, _ = next
-                if(visited.get(successor) is None):
+                if(visited.get(successor) is None or visited[successor] == False):
+                    visited[successor] = False
                     open.push((successor, dep+1, action))
             # p = (pos[0]+1,pos[1])
             # if checkWalls(p):
@@ -209,6 +210,7 @@ def breadthFirstSearch(problem):
             for next in succ:
                 successor, action, _ = next
                 if visited.get(successor) is None:
+                    visited[successor] = False
                     open.push((successor, his+[action]))
             # p = (pos[0]+1,pos[1])
             # if checkWalls(p):
@@ -276,6 +278,7 @@ def uniformCostSearch(problem):
             for next in succ:
                 successor, action, _cost = next
                 if(visited.get(successor) is None):
+                    visited[successor] = False
                     _c = _cost + cost
                     open.push((successor, _c, his+[action]), _c)
             # p = (pos[0]+1,pos[1])
