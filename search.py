@@ -125,13 +125,16 @@ def depthFirstSearch(problem):
     dep = -1
     while(not problem.isGoalState(pos) and not open.isEmpty()):
         pos, _dep, his = open.pop()
+        if visited.get(pos) is not None and visited[pos]:
+            continue
+        visited[pos] = True
+        
         while dep >= _dep:
             dep -= 1
             history.pop()
         dep = _dep
         if(his is not st):
             history.push(his)
-        visited[pos] = True
         if(problem.isGoalState(pos)):
             found = True
             break
@@ -199,7 +202,8 @@ def breadthFirstSearch(problem):
     
     while(not problem.isGoalState(pos) and not open.isEmpty()):
         pos, his = open.pop()
-
+        if visited.get(pos) is not None and visited[pos]:
+            continue
         visited[pos] = True
         if(problem.isGoalState(pos)):
             found = True
@@ -209,7 +213,7 @@ def breadthFirstSearch(problem):
             succ = problem.getSuccessors(pos)
             for next in succ:
                 successor, action, _ = next
-                if visited.get(successor) is None:
+                if visited.get(successor) is None or visited[successor] == False:
                     visited[successor] = False
                     open.push((successor, his+[action]))
             # p = (pos[0]+1,pos[1])
@@ -267,7 +271,8 @@ def uniformCostSearch(problem):
     
     while(not problem.isGoalState(pos) and not open.isEmpty()):
         pos, cost, his = open.pop()
-
+        if visited.get(pos) is not None and visited[pos]:
+            continue
         visited[pos] = True
         if(problem.isGoalState(pos)):
             found = True
@@ -277,7 +282,7 @@ def uniformCostSearch(problem):
             succ = problem.getSuccessors(pos)
             for next in succ:
                 successor, action, _cost = next
-                if(visited.get(successor) is None):
+                if(visited.get(successor) is None or visited.get(successor)==False):
                     visited[successor] = False
                     _c = _cost + cost
                     open.push((successor, _c, his+[action]), _c)

@@ -12,5 +12,13 @@
             "args": ["-l","mediumMaze","-p","StayEastSearchAgent"],
             "console": "integratedTerminal"
         }
+        ,        {
+            "name": "grader",
+            "type": "python",
+            "request": "launch",
+            "program": "autograder.py",
+            "args": ["-q","q3"],
+            "console": "integratedTerminal"
+        }
     ]
 }
